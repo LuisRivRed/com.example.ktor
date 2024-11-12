@@ -28,13 +28,30 @@ object GestionAlumnos {
         it.id == id
     }
 
-    fun nuevoAlumno(alumno: Alumno) {
+    fun nuevoAlumno(alumno: Alumno): Alumno {
+        var alumnoFinal = alumno
         // Se comprueba si el id viene nulo o si nos lo pasan
         // Si nos lo pasan se comprueba que no exista
         // Si llega nulo se calcula con MAX + 1
-        if (alumno.id != null) {
-            val alumno = getAlumnoId(alumno.id)
+        if (alumno.id != null && alumno.id > 0) {
+            val alumnoTmp = getAlumnoId(alumno.id)
+            if (alumnoTmp != null) {
+                // Alumno existente, valor repetido
+                throw IllegalStateException("¡is Alumno ya existe!")
+            } else {
+                // Se inserta el nuevo alumno
+                alumnos.add(alumno)
+            }
+        } else {
+            // Se obtiene el valor máximo de ños idAlumno y se
+            // suma 1 para insertarlo como nuwevo id
+            val maxId = alumnos.maxWith(Comparator.comparingInt {
+                it.id
+            }).id
+            alumno.id = maxId + 1
+            alumnos.add(alumno)
         }
+        return alumnoFinal
     }
 
 }
