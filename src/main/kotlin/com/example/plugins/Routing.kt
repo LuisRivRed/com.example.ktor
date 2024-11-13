@@ -61,6 +61,45 @@ fun Application.configureRouting() {
                 }
             }
 
+            get("/eliminar/{idAlumno}") {
+                val idAlumno = call.parameters["idAlumno"]
+                if (idAlumno != null) {
+                    if (GestionAlumnos.borrarAlumno(idAlumno.toInt())) {
+                        call.respondText("Alumno con id $idAlumno eliminado correctamente.")
+                    } else {
+                        call.respondText("No se ha encontrado ningún alumno con el id = $idAlumno")
+                    }
+                } else {
+                    call.respondText("idAlumno campo obligatorio")
+                }
+            }
+
+            delete("/eliminar/{idAlumno}") {
+                val idAlumno = call.parameters["idAlumno"]
+                if (idAlumno != null) {
+                    if (GestionAlumnos.borrarAlumno(idAlumno.toInt())) {
+                        call.respondText("Alumno con id $idAlumno eliminado correctamente.")
+                    } else {
+                        call.respondText("No se ha encontrado ningún alumno con el id = $idAlumno")
+                    }
+                } else {
+                    call.respondText("idAlumno campo obligatorio")
+                }
+            }
+
+            delete("/eliminar") {
+                val idAlumno = call.receive<Int>()
+                if (idAlumno != null) {
+                    if (GestionAlumnos.borrarAlumno(idAlumno.toInt())) {
+                        call.respondText("Alumno con id $idAlumno eliminado correctamente.")
+                    } else {
+                        call.respondText("No se ha encontrado ningún alumno con el id = $idAlumno")
+                    }
+                } else {
+                    call.respondText("idAlumno campo obligatorio")
+                }
+            }
+
         }
 
     }

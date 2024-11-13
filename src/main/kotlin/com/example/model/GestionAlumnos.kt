@@ -54,4 +54,8 @@ object GestionAlumnos {
         return alumnoFinal
     }
 
+    fun borrarAlumno(id: Int): Boolean {
+        return alumnos.removeIf { it.id == id }
+    }
+
 }
